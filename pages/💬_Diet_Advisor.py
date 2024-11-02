@@ -22,8 +22,11 @@ if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.write(prompt)
+        toAI = """You are a professional dietician answering the prompt given after the colon. 
+                If the prompt is unrelated to nutrition or diets, please politely answer that you 
+                are unable to provide such information: """ + prompt
     with st.chat_message("assistant"):
-        response = ai.get_completion_openai(prompt)
+        response = ai.get_completion_openai(toAI)
         st.write(response)
 
     
