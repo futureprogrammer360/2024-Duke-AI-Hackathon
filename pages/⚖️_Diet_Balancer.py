@@ -1,5 +1,6 @@
 import random
 from itertools import count
+import json
 
 import streamlit as st
 
@@ -112,4 +113,18 @@ else:
             st.session_state["bio_info"]["act_lvl"],
             food_items
         )
-        st.write(response)
+        response = response[response.find("{"):response.rfind("}") + 1]
+
+        try:
+            response_dict = json.loads(response)
+        except json.decoder.JSONDecodeError:
+            pass
+        else:
+            for nutrient in response_dict.keys():
+                nutrient_info = response_dict[nutrient]
+                is_sufficient = nutrient_info["sufficient"]
+                with st.expander(f"{'✅' if is_sufficient else '❌'} {nutrient.title()}", expanded=False):
+                    if is_sufficient:
+                        st.write(f"You are getting enough {nutrient}. Good job!")
+                    else:
+                        st.write(f"You are not getting sufficient quantities of {nutrient}.")
