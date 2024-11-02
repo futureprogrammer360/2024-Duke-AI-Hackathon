@@ -29,17 +29,21 @@ class AI:
          as well as any recommendations for additions to the meal if that nutrient is insufficient. 
         For the nutrients that aren't sufficiently represented, their objects will have a field telling if it is sufficient or not,
         and another field for suggestions, which gives a list of objects with two fields, the name of the food, and the nutrients that the food has.
-        return prompt"""
+        """
+        return prompt
 
-    def main(self):
+    def main(self,age,gender,weight,height,activity_level):
+        """
         question = input("What is your question ")
         while(question!=""):
             print(self.get_completion_openai(question))
             question = input("What is your question ")
+            """
+        return self.get_completion_openai(self.create_prompt(age=age,gender=gender,weight=weight,height=height,activity_level=activity_level))
    
 
     
 # Example of running the main method
 if __name__ == "__main__":
     ai_instance = AI()  # Create an instance of the AI class
-    ai_instance.main()  # Call the main method
+    print(ai_instance.main(age=18,gender="male",weight=155,height=6,activity_level="moderate activity"))  # Call the main method
