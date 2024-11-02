@@ -17,9 +17,9 @@ class AI:
         self.messages.append({"role":"assistant", "content": response.choices[0].message.content})
         return response.choices[0].message.content
     
-    def create_prompt(self,age, gender, weight, height, activity_level):
-        prompt = f"""I am {age} years old, {gender}, weigh {weight} pounds, {height} feet tall, and {activity_level}. 
-        For a meal, I am eating mac and cheese, boiled potatoes, and drinking water. 
+    def create_prompt(self,age, gender, weight, height, activity_level,foodList):
+        prompt = f"""I am {age} years old, {gender}, weigh {weight} pounds, {height} inches tall, and {activity_level} activity. 
+        For a meal, I am eating {", ".join(foodList[:-1]) + ", and " + foodList[-1]+ "."} 
         Can you tell me if I am consuming enough proteins, carbohydrates, fats, calcium, iron, fiber, 
         vitamin A, vitamin K, vitamin C, vitamin B, vitamin D, potassium, magnesium, and water, 
         what nutrients I am not consuming enough of, and suggest foods I should supplement my meal with.
@@ -30,20 +30,21 @@ class AI:
         For the nutrients that aren't sufficiently represented, their objects will have a field telling if it is sufficient or not,
         and another field for suggestions, which gives a list of objects with two fields, the name of the food, and the nutrients that the food has.
         """
+        print(prompt)
         return prompt
 
-    def main(self,age,gender,weight,height,activity_level):
+    def main(self,age,gender,weight,height,activity_level,foodList):
         """
         question = input("What is your question ")
         while(question!=""):
             print(self.get_completion_openai(question))
             question = input("What is your question ")
             """
-        return self.get_completion_openai(self.create_prompt(age=age,gender=gender,weight=weight,height=height,activity_level=activity_level))
+        return self.get_completion_openai(self.create_prompt(age=age,gender=gender,weight=weight,height=height,activity_level=activity_level,foodList=foodList))
    
 
     
 # Example of running the main method
 if __name__ == "__main__":
     ai_instance = AI()  # Create an instance of the AI class
-    print(ai_instance.main(age=18,gender="male",weight=155,height=6,activity_level="moderate activity"))  # Call the main method
+    print(ai_instance.main(age=18,gender="male",weight=155,height=6,activity_level="moderate",foodList=["mac and cheese", "boiled potatoes", "kit kats", "hersheys", "pasta", "ravioli", "donuts", "kale"]))  # Call the main method
