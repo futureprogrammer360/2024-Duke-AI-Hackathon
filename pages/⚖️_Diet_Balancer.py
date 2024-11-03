@@ -72,7 +72,7 @@ def bio_info():
             del st.session_state.bio_info
             st.rerun()
 
-st.header("⚖️ Diet Balancer")
+st.title("⚖️ Diet Balancer")
 
 if "bio_info" not in st.session_state:
     st.button("✏️ Add biometric profile", on_click=bio_info)
@@ -84,9 +84,14 @@ if "bio_info" not in st.session_state:
 else:
     st.sidebar.button("✏️ Edit biometric profile", on_click=bio_info)
 
-    st.subheader("What have you eaten today?")
+    col_1, col_2 = st.columns([0.7, 0.3], vertical_alignment="center")
+    with col_1:
+        st.subheader("What have you eaten today?")
+    with col_2:
+        num_food_items = st.number_input("Number of food items", min_value=1, max_value=10)
+    
 
-    num_food_items = st.sidebar.number_input("Number of food items", min_value=1, max_value=10)
+    # num_food_items = st.sidebar.number_input("Number of food items", min_value=1, max_value=10)
 
     example_food_items = [
         "Ice cream",
