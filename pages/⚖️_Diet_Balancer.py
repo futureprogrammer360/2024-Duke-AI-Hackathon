@@ -141,15 +141,11 @@ else:
                     if is_sufficient:
                         st.write(f"You are getting enough {nutrient}. Good job!")
                         st.write("Contributing Foods:")
-                        if len(nutrient_info["food_contributors"]) > 1:
-                            st.write(", ".join(nutrient_info["food_contributors"][:-1]) + ", and " + nutrient_info["food_contributors"][-1]+ ".")
-                        else:
-                            st.write(", ".join(nutrient_info["food_contributors"]))
+                        for food in nutrient_info["food_contributors"]:
+                            st.markdown("- " + food)
                     else:
                         st.write(f"You are not getting sufficient quantities of {nutrient}.")
                         st.write("Recommendations:")
-                        if len(nutrient_info["recommendations"]) > 1:
-                            st.write(", ".join(nutrient_info["recommendations"][:-1]) + ", and " + nutrient_info["recommendations"][-1]+ ".")
-                        else:
-                            st.write(", ".join(nutrient_info["recommendations"]))
+                        for food in nutrient_info["recommendations"]:
+                            st.markdown("- " + food)
 

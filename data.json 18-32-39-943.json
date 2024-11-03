@@ -6,7 +6,7 @@
   },
   "carbohydrates": {
     "sufficient": true,
-    "food_contributors": ["Fries"],
+    "food_contributors": ["Fries", "Potatoes", "more potatoes"],
     "recommendations": []
   },
   "fats": {
