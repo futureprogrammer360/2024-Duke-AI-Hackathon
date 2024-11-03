@@ -9,9 +9,11 @@ st.set_page_config(
 )
 
 
-
 @st.dialog("👋 Choose your advising style")
 def style_info():
+    st.session_state.style_info = {
+                "style": "Regular"
+            }
     style = st.selectbox(label="Style of Advising", options = ["Regular", "Humorous", "Sympathetic", "Harsh"])
     if st.button("Save"):
             st.session_state.style_info = {
@@ -26,7 +28,7 @@ with cols[0]:
 
 with cols[1]:
         if "style_info" not in st.session_state:
-            #st.button("✏️ Select advising style", on_click= style_info)
+            st.button("✏️ Select advising style", on_click= style_info)
             try:
                 style_info()
             except st.errors.StreamlitAPIException:
@@ -39,9 +41,6 @@ st.subheader("Ask any questions you have about your diet!")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
-
-
 
 
 with st.chat_message("assistant"):
