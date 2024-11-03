@@ -110,26 +110,46 @@ else:
         del st.session_state[key]
 
     if st.button("Get recommendations"):
-        response = ai.main(
-            st.session_state["bio_info"]["age"],
-            st.session_state["bio_info"]["gender"],
-            st.session_state["bio_info"]["weight"],
-            st.session_state["bio_info"]["height"],
-            st.session_state["bio_info"]["act_lvl"],
-            food_items
-        )
-        response = response[response.find("{"):response.rfind("}") + 1]
+        #uncomment
+        # response = ai.main(
+        #     st.session_state["bio_info"]["age"],
+        #     st.session_state["bio_info"]["gender"],
+        #     st.session_state["bio_info"]["weight"],
+        #     st.session_state["bio_info"]["height"],
+        #     st.session_state["bio_info"]["act_lvl"],
+        #     food_items
+        # )
+        # response = response[response.find("{"):response.rfind("}") + 1]
+
+        
 
         try:
-            response_dict = json.loads(response)
+            # uncomment
+            # response_dict = json.loads(response)
+            # loading dummy data
+            with open('data.json 18-32-39-943.json', 'r') as f:
+            # Load the JSON data into a Python dictionary
+                response_dict = json.load(f)
         except json.decoder.JSONDecodeError:
             pass
         else:
             for nutrient in response_dict.keys():
                 nutrient_info = response_dict[nutrient]
                 is_sufficient = nutrient_info["sufficient"]
+                nutrient = nutrient.replace("_", " ")
                 with st.expander(f"{'✅' if is_sufficient else '❌'} {nutrient.title()}", expanded=False):
                     if is_sufficient:
                         st.write(f"You are getting enough {nutrient}. Good job!")
+                        st.write("Contributing Foods:")
+                        if len(nutrient_info["food_contributors"]) > 1:
+                            st.write(", ".join(nutrient_info["food_contributors"][:-1]) + ", and " + nutrient_info["food_contributors"][-1]+ ".")
+                        else:
+                            st.write(", ".join(nutrient_info["food_contributors"]))
                     else:
                         st.write(f"You are not getting sufficient quantities of {nutrient}.")
+                        st.write("Recommendations:")
+                        if len(nutrient_info["recommendations"]) > 1:
+                            st.write(", ".join(nutrient_info["recommendations"][:-1]) + ", and " + nutrient_info["recommendations"][-1]+ ".")
+                        else:
+                            st.write(", ".join(nutrient_info["recommendations"]))
+

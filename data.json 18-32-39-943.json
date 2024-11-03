@@ -1,0 +1,72 @@
+{
+  "protein": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Grilled chicken breast", "Tofu", "Greek yogurt", "Lentils"]
+  },
+  "carbohydrates": {
+    "sufficient": true,
+    "food_contributors": ["Fries"],
+    "recommendations": []
+  },
+  "fats": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Avocado", "Nuts", "Olive oil"]
+  },
+  "calcium": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Milk", "Cheese", "Yogurt", "Leafy greens"]
+  },
+  "iron": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Red meat", "Beans", "Spinach", "Fortified cereals"]
+  },
+  "fiber": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Whole grains", "Fruits", "Vegetables", "Legumes"]
+  },
+  "vitamin_A": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Carrots", "Sweet potatoes", "Spinach", "Kale"]
+  },
+  "vitamin_K": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Kale", "Broccoli", "Brussels sprouts", "Green leafy vegetables"]
+  },
+  "vitamin_C": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Citrus fruits", "Bell peppers", "Strawberries", "Broccoli"]
+  },
+  "vitamin_B": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Whole grains", "Eggs", "Meat", "Dairy products"]
+  },
+  "vitamin_D": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Fatty fish", "Fortified milk", "Egg yolks", "Mushrooms"]
+  },
+  "potassium": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Bananas", "Potatoes", "Beans", "Spinach"]
+  },
+  "magnesium": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Nuts", "Seeds", "Whole grains", "Dark chocolate"]
+  },
+  "water": {
+    "sufficient": false,
+    "food_contributors": [],
+    "recommendations": ["Drink water", "Fruits with high water content (e.g., watermelon)"]
+  }
+}
