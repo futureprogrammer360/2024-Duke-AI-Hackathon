@@ -56,6 +56,11 @@ def bio_info():
         index=act_lvl_options.index(st.session_state.bio_info["act_lvl"]) if st.session_state.get("bio_info") else 0
     )
 
+    allergies = st.text_input(
+        "Any allergies?", placeholder="None",
+        value=st.session_state.bio_info["allergies"] if st.session_state.get("bio_info") else ""
+    )
+
     cols = st.columns(2)
     with cols[0]:
         if st.button("Save"):
@@ -65,7 +70,8 @@ def bio_info():
                 "gender": gender,
                 "height": height_ft * 12 + height_in,
                 "weight": weight,
-                "act_lvl": act_lvl
+                "act_lvl": act_lvl,
+                "allergies": allergies
             }
             st.rerun()
     with cols[1]:
@@ -106,6 +112,7 @@ else:
             st.session_state["bio_info"]["weight"],
             st.session_state["bio_info"]["height"],
             st.session_state["bio_info"]["act_lvl"],
+            st.session_state["bio_info"]["allergies"],
             food_items
         )
         response = response[response.find("{"):response.rfind("}") + 1]
