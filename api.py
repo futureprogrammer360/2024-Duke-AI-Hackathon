@@ -41,7 +41,7 @@ class AI:
         which is a list of instructions needed to cook the dish. Additionally, the JSON contains one object for each nutrient.
         For every nutrient object, there is a field "sufficient" which is true if the nutrient is sufficiently represented or false if it is not,
         another field "food_contributors" containing a list of the foods that contribute to the nutrient's sufficiency (this list is empty for insufficient nutrients),
-        as well one last field, "recommendations" which contains a list of additions to the meal if that nutrient is insufficient.
+        as well one last field, "recommendations" which contains a list of foods that are rich in that specific nutrient. 
         """
         print(prompt)
         return prompt
