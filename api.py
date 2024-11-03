@@ -32,7 +32,7 @@ class AI:
         prompt = f"""I am {age} years old, {gender}, weigh {weight} pounds, {height} inches tall, and {activity_level} activity. 
         For a meal, I am eating {", ".join(foodList[:-1]) + ", and " + foodList[-1]+ "."} 
         Can you tell me if I am consuming enough proteins, carbohydrates, fats, calcium, iron, fiber, 
-        vitamin A, vitamin K, vitamin C, vitamin B, vitamin D, potassium, magnesium, and water, 
+        vitamin A, vitamin K, vitamin C, vitamin B, vitamin D, potassium, and magnesium, 
         what nutrients I am not consuming enough of, and suggest foods I should supplement my meal with.
         Please do so in the form of JSON; do not output any other texts before or after the JSON object.
         The JSON contains a field "summary" containing a brief summary of any nutritional deficincies I may have.
