@@ -115,8 +115,43 @@ else:
         except json.decoder.JSONDecodeError:
             pass
         else:
-            for nutrient in response_dict.keys():
-                nutrient_info = response_dict[nutrient]
+            st.markdown("""
+            <style>
+            .stExpander summary span div p {
+              font-size: 20px;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+
+            summary = response_dict["summary"]
+            recipe = response_dict["recipe"]
+            nutrients = response_dict["nutrients"]
+
+            # Summary and recommended meal
+            with st.expander("Summary and recommended meal", expanded=True):
+                st.write(summary)
+                st.write(f"Here's a recommended meal you should try: **{recipe['name']}**")
+
+                cols = st.columns(2)
+                with cols[0]:
+                    st.write("**Ingredients**:")
+                    markdown = ""
+                    for i, ingredient in enumerate(recipe["ingredients"]):
+                        markdown += f"{i + 1}. {ingredient}\n"
+                    st.markdown(markdown)
+                with cols[1]:
+                    image_url = images.get_image(recipe["name"])
+                    st.image(image_url, caption=recipe["name"])
+
+                st.write("**Instructions**:")
+                markdown = ""
+                for i, instruction in enumerate(recipe["instructions"]):
+                    markdown += f"{i + 1}. {instruction}\n"
+                st.markdown(markdown)
+
+            # Nutrients
+            for nutrient in nutrients.keys():
+                nutrient_info = nutrients[nutrient]
                 is_sufficient = nutrient_info["sufficient"]
                 nutrient = nutrient.replace("_", " ").title()
 
