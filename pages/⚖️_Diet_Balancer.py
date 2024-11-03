@@ -5,6 +5,7 @@ import json
 import streamlit as st
 
 import api
+import images
 
 index = count()
 
@@ -89,18 +90,7 @@ else:
         st.subheader("What have you eaten today?")
     with col_2:
         num_food_items = st.number_input("Number of food items", min_value=1, max_value=10)
-    
 
-    # num_food_items = st.sidebar.number_input("Number of food items", min_value=1, max_value=10)
-
-    example_food_items = [
-        "Ice cream",
-        "Cheeseburger",
-        "Pasta",
-        "Omelette",
-        "Mac and cheese",
-        "Boiled potatoes"
-    ]
     food_items = []
 
     for i in range(num_food_items):
@@ -109,43 +99,54 @@ else:
         food_items.append(food)
         del st.session_state[key]
 
-    if st.button("Get recommendations"):
-        #uncomment
-        # response = ai.main(
-        #     st.session_state["bio_info"]["age"],
-        #     st.session_state["bio_info"]["gender"],
-        #     st.session_state["bio_info"]["weight"],
-        #     st.session_state["bio_info"]["height"],
-        #     st.session_state["bio_info"]["act_lvl"],
-        #     food_items
-        # )
-        # response = response[response.find("{"):response.rfind("}") + 1]
-
-        
+    if st.button("Get insights and recommendations"):
+        response = ai.main(
+            st.session_state["bio_info"]["age"],
+            st.session_state["bio_info"]["gender"],
+            st.session_state["bio_info"]["weight"],
+            st.session_state["bio_info"]["height"],
+            st.session_state["bio_info"]["act_lvl"],
+            food_items
+        )
+        response = response[response.find("{"):response.rfind("}") + 1]
 
         try:
-            # uncomment
-            # response_dict = json.loads(response)
-            # loading dummy data
-            with open('data.json 18-32-39-943.json', 'r') as f:
-            # Load the JSON data into a Python dictionary
-                response_dict = json.load(f)
+            response_dict = json.loads(response)
         except json.decoder.JSONDecodeError:
             pass
         else:
             for nutrient in response_dict.keys():
                 nutrient_info = response_dict[nutrient]
                 is_sufficient = nutrient_info["sufficient"]
-                nutrient = nutrient.replace("_", " ")
-                with st.expander(f"{'✅' if is_sufficient else '❌'} {nutrient.title()}", expanded=False):
+                nutrient = nutrient.replace("_", " ").title()
+
+                with st.expander(f"{'✅' if is_sufficient else '❌'} {nutrient}", expanded=False):
                     if is_sufficient:
                         st.write(f"You are getting enough {nutrient}. Good job!")
-                        st.write("Contributing Foods:")
-                        for food in nutrient_info["food_contributors"]:
-                            st.markdown("- " + food)
+
+                        cols = st.columns(2)
+                        with cols[0]:
+                            st.write("Contributing Foods:")
+                            markdown = ""
+                            for food in nutrient_info["food_contributors"]:
+                                markdown += f"- {food}\n"
+                            st.markdown(markdown)
+
+                        with cols[1]:
+                            image_url = images.get_image(nutrient_info["food_contributors"][0])
+                            st.image(image_url, caption=nutrient_info["food_contributors"][0])
+
                     else:
                         st.write(f"You are not getting sufficient quantities of {nutrient}.")
-                        st.write("Recommendations:")
-                        for food in nutrient_info["recommendations"]:
-                            st.markdown("- " + food)
 
+                        cols = st.columns(2)
+                        with cols[0]:
+                            st.write("Recommendations:")
+                            markdown = ""
+                            for food in nutrient_info["recommendations"]:
+                                markdown += f"- {food}\n"
+                            st.markdown(markdown)
+
+                        with cols[1]:
+                            image_url = images.get_image(nutrient_info["recommendations"][0])
+                            st.image(image_url, caption=nutrient_info["recommendations"][0])
