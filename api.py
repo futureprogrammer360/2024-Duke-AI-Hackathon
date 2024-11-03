@@ -5,9 +5,20 @@ import os
 
 class AI:
     load_dotenv()
-    messages = [{"role":"system","content": "You are an AI assistant"}]
+    messages = []
     api_key = os.getenv("OPEN_AI_API_KEY")
-    openai_client = OpenAI(api_key=api_key)        
+    openai_client = OpenAI(api_key=api_key)  
+
+    def setPrompt(self,style):
+        if(style == "Standard"):
+            self.messages.append({"role":"system","content": "You are a professional dietician who is trying their best to help people become the best versions of themselves"})   
+        elif (style == "Humorous"):
+            self.messages.append({"role":"system","content": "You are a professional dietician who uses humor to help people become the best versions of themselves"})   
+        elif (style == "Harsh"):
+            self.messages.append({"role":"system","content": "You are a professional dietician who uses harshness to help people become the best versions of themselves"})   
+        elif (style == "Sympathetic"):
+            self.messages.append({"role":"system","content": "You are a professional dietician who uses sympathy to help people become the best versions of themselves"})   
+           
 
 
     def get_completion_openai(self,prompt, model="gpt-4o-mini"):
