@@ -14,7 +14,7 @@ def style_info():
     st.session_state.style_info = {
                 "style": "Regular"
             }
-    style = st.selectbox(label="Style of Advising", options = ["Regular", "Humorous", "Sympathetic", "Harsh"])
+    style = st.selectbox(label="Style of Advising", options = ["Regular", "Harsh","Humorous","Motivational","Philosophical", "Sympathetic"])
     if st.button("Save"):
             st.session_state.style_info = {
                 "style": style
@@ -22,22 +22,28 @@ def style_info():
             st.rerun()
 
 
-cols = st.columns(2)
-with cols[0]:
-        st.title("💬 Diet Advisor")
+st.title("💬 Diet Advisor")
 
-with cols[1]:
-        if "style_info" not in st.session_state:
-            st.button("✏️ Select advising style", on_click= style_info)
-            try:
-                style_info()
-            except st.errors.StreamlitAPIException:
-                pass
-        else:
-            st.button("✏️ Edit advising style", on_click= style_info)
-            st.text(body = "Your current style: "+st.session_state.style_info["style"])
+st.subheader("Ask any diet questions!")    
 
-st.subheader("Ask any questions you have about your diet!")    
+if "style_info" not in st.session_state:
+    st.sidebar.write("\n")
+    st.sidebar.button("✏️ Select advising style", on_click= style_info)
+    try:
+        style_info()
+    except st.errors.StreamlitAPIException:
+        pass
+else:
+    cols = st.columns(2)
+    st.sidebar.write("\n")
+    with cols[0]:
+        st.sidebar.button("✏️ Edit advising style", on_click= style_info)
+    with cols[1]:
+        #st.text(body = """Your current style: """+st.session_state.style_info["style"])
+        name = st.session_state.style_info["style"]
+        st.sidebar.markdown(f"<div style='text-align: center;display: flex; align-items: center; height: 30px;'>Your current style: {name}</div>", unsafe_allow_html=True)
+
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
