@@ -23,7 +23,11 @@ class AI:
         Can you tell me if I am consuming enough proteins, carbohydrates, fats, calcium, iron, fiber, 
         vitamin A, vitamin K, vitamin C, vitamin B, vitamin D, potassium, magnesium, and water, 
         what nutrients I am not consuming enough of, and suggest foods I should supplement my meal with.
-        Please do so in the form of JSON, in which there is one object for each nutrient. Do not output any other texts before or after the JSON object.
+        Please do so in the form of JSON; do not output any other texts before or after the JSON object.
+        The JSON contains a field "summary" containing a brief summary of any nutritional deficincies I may have.
+        Then, the JSON has a recipe object that contains a field "name" for the dish the recipe creates,
+        a field "ingredients" which is a list of ingredients in the dish, and a field "instructions" 
+        which is a list of instructions needed to cook the dish. Additionally, the JSON contains one object for each nutrient.
         For every nutrient object, there is a field "sufficient" which is true if the nutrient is sufficiently represented or false if it is not,
         another field "food_contributors" containing a list of the foods that contribute to the nutrient's sufficiency (this list is empty for insufficient nutrients),
         as well one last field, "recommendations" which contains a list of additions to the meal if that nutrient is insufficient.
